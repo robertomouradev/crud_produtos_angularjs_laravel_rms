@@ -1,0 +1,119 @@
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3'>
+  <h1>Produtos</h1>
+  <div class='row'style="margin-bottom:30px">
+    <div class='col-sm-6'>
+		<input type='text' ng-model='query' class='form-control' placeholder='Filtrar' />
+	</div>
+	<div class='col-sm-6 col text-right'>
+			<button data-toggle="modal" data-target="#form-data" class="btn btn-link" ng-click="updateProductScope({active:'yes'})" >Adicionar novo</button>
+	</div>
+  </div>
+  <dir-pagination-controls ng-hide='query.length > 0' pagination-id="sub-content"></dir-pagination-controls>
+</div>
+
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3' dir-paginate='produto in products | filter: query | itemsPerPage: 5 as produtoItems' pagination-id="sub-content">
+		<div class="media">
+		  <div class="media-left">
+			<img ng-src="{{produto.imagem}}" class="media-object" id="imagem" >
+		  </div>
+		  <div class="media-body">
+			<h4 class="media-heading">{{produto.name}}</h4>
+			<p>{{produto.description}}</p>
+			<p>preço de compra R$ {{produto.sale_price}}</p>
+			<p>preço de revenda R$ {{produto.price}}</p>
+			<p>Ativo: <i class="fa fa-check" ng-if="produto.active == 'yes'"></i><i class="fa fa-close" ng-if="produto.active != 'yes'"></i></p>
+		  </div>
+		  <button ng-click="updateProductScope(produto)" data-toggle="modal" data-target="#view-data" class="btn btn-link">Ver</button>
+		  <button ng-click="updateProductScope(produto)" data-toggle="modal" data-target="#form-data" class="btn btn-link">Editar</button>
+		  <button ng-click="deleteProduct(produto.id)" class="btn btn-link">Excluir</button>
+		</div>
+		<hr>
+</div>
+
+<div class='col-sm-6 col-sm-offset-3' ng-if='produtoItems.length == 0'><p>produto não encontrado</p></div>
+</div>
+
+<div class='col-sm-6 col-sm-offset-3'>
+  <dir-pagination-controls ng-hide='query.length > 0' pagination-id="sub-content"></dir-pagination-controls>
+
+</div>
+
+<!-- Modal editar e adicionar novo -->
+<div class="modal fade" id="form-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="editItem" role="form">
+                <input ng-model="produto.id" type="hidden" placeholder="Name" name="name" class="form-control" />
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar produto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body" >
+			  <form role="form">
+				<div class="form-group">
+				  <label>Nome:</label>
+				  <input ng-model="produto.name" type="text" placeholder="Nome" name="nome" class="form-control" required />
+				</div>
+				<div class="form-group">
+				  <label for="description">Descrição:</label>
+				  <input ng-model="produto.description" type="text" rows="2" placeholder="Descrição" name="description" class="form-control" required />
+				</div>    
+				<div class="form-group">
+				  <label for="sale_price">Preço de compra:</label>
+				  <input ng-model="produto.sale_price" type="text" placeholder="Preco de compra" name="sale_price" class="form-control" required />
+				</div>
+				<div class="form-group">
+				  <label for="price">Preço de venda:</label>
+				  <input ng-model="produto.price" type="text" placeholder="Preco de compra" name="price" class="form-control" required />
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="produto.active" ng-true-value="'yes'" ng-false-value="'no'" ng-checked="produto.active == 'yes'"> Ativo</label>
+				</div>
+				<div class="form-group">
+				<label>Imagem:</label>
+				<img id="imagem" ng-src="{{produto.imagem}}" ng-if="produto.imagem" >
+				<img id="imagem" data-ng-src="{{imgBase64Tmp}}" ng-if="imgBase64Tmp" >
+				<div class="input-group">
+					<span class="input-group-btn">
+						<span class="btn btn-default btn-file">
+							Abrir… <input ng-model='produto.imagem' onchange="angular.element(this).scope().selectImageFile(this)" class="form-control" type="file" id="imgProduto" accept="image/*">
+						</span>
+					</span>
+				</div>
+				</div>
+				  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				  <button type="submit" ng-click="updateProduct(produto)" ng-if="produto.id" class="btn btn-primary" ng-disabled="!produto.name || !produto.description || !produto.sale_price || !produto.price">Alterar</button>
+				  <button type="submit" ng-click="createProduct(produto)" ng-if="!produto.id" class="btn btn-primary" ng-disabled="!produto.name || !produto.description || !produto.sale_price || !produto.price">Adicionar</button>
+			  </form>
+        </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal View-->
+<div class="modal fade" id="view-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Produto</h4>
+            </div>
+			 <div class="media">
+			  <div class="media-left">
+				<img id="imagem" ng-src="{{produto.imagem}}" class="media-object" style="height:250px">
+			  </div>
+			  <div class="media-body">
+				<h4 class="media-heading">{{produto.name}}</h4>
+				<p>{{produto.description}}</p>
+				<p>preço de compra R$ {{produto.sale_price}}</p>
+				<p>preço de revenda R$ {{produto.price}}</p>
+				<p>Ativo: <i class="fa fa-check" ng-if="produto.active == 'yes'"></i><i class="fa fa-close" ng-if="produto.active != 'yes'"></i></p>
+			  </div>
+			</div>
+        </div>
+    </div>
+</div>
