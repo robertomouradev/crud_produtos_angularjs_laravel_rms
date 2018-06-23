@@ -6,5 +6,6 @@ angular.module('main', [
     'ngRoute',
     'ui.bootstrap',
     //app
-    'productList'
+    'productList',
+	'confirmClick'
 ]);

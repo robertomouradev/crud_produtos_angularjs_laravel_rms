@@ -12,16 +12,20 @@
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap-tpls.min.js'></script>
     
+	<script src='./js/utils/confirm-click/confirm-click.module.js' ></script>
+    <script src='./js/utils/confirm-click/confirm-click.directive.js' ></script>
+	
     <script src='./js/external/dirPagination.js' ></script>
-    <script src='./js/app/app.module.js' ></script>
-    <script src='./js/app/app.config.js' ></script>
     <script src='./js/app/product-list/product-list.module.js' ></script>
     <script src='./js/app/product-list/product-list.component.js' ></script>
 	
     <script src='./js/app/core/product/product.module.js' ></script>
     <script src='./js/app/core/product/product.service.js' ></script>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+    <script src='./js/app/app.module.js' ></script>
+    <script src='./js/app/app.config.js' ></script>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

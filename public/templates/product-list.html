@@ -27,7 +27,7 @@
 		  </div>
 		  <button ng-click="updateProductScope(produto)" data-toggle="modal" data-target="#view-data" class="btn btn-link">Ver</button>
 		  <button ng-click="updateProductScope(produto)" data-toggle="modal" data-target="#form-data" class="btn btn-link">Editar</button>
-		  <button ng-click="deleteProduct(produto.id)" class="btn btn-link">Excluir</button>
+		  <button class="btn btn-link"  confirm-click='deseja excluir o produto?' confirmed-click='deleteProduct(produto.id)'>Excluir</button>
 		</div>
 		<hr>
 </div>
